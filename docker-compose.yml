@@ -15,8 +15,8 @@ services:
         container_name: wildfly
         build: .
         ports:
-            - "8080:8080"
-            - "9990:9990"
+            - "80:8080"
+            - "99:9990"
         environment:
             - DB_HOST=postgres
             - DB_PORT=5432
@@ -29,3 +29,10 @@ services:
         volumes:
             - ./volumes/wildfly/logs:/opt/jboss/wildfly/standalone/log
             - ./volumes/wildfly/deployments:/opt/jboss/wildfly/standalone/deployments
+    swagger:
+        image: swaggerapi/swagger-ui
+        container_name: swagger-ui
+        expose:
+            - 8080
+        ports:
+            - 81:8080
