@@ -1,0 +1,31 @@
+version: '3'
+services:
+    postgres:
+        image: postgres
+        container_name: postgres
+        ports:
+          - "5432:5432"
+        environment:
+             - POSTGRES_PASSWORD=docker
+             - POSTGRES_USER=docker
+             - POSTGRES_DB=myDB
+        volumes:
+            - ./volumes/postgres/data:/var/lib/postgresql/data
+    wildfly:
+        container_name: wildfly
+        build: .
+        ports:
+            - "8080:8080"
+            - "9990:9990"
+        environment:
+            - DB_HOST=postgres
+            - DB_PORT=5432
+            - DB_NAME=myDB
+            - DB_USER=docker
+            - DB_PASS=docker
+            - DS_NAME=myDatasource
+        depends_on:
+            - postgres
+        volumes:
+            - ./volumes/wildfly/logs:/opt/jboss/wildfly/standalone/log
+            - ./volumes/wildfly/deployments:/opt/jboss/wildfly/standalone/deployments
