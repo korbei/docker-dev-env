@@ -1,4 +1,4 @@
-# Widlfy and postgresql developer enviroment
+# Widlfy and mysql developer enviroment
 
 # Usage
 
