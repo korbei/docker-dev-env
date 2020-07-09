@@ -1,11 +1,11 @@
-# Widlfy and mysql developer enviroment
+# Wildfy and mysql developer enviroment
 
 # Usage
 
 ```
 docker-compose up -d
 ```
-Widlfy admin console<br/>
+Wildfy admin console<br/>
 http://localhost:99/console/index.html<br/>
 user: admin<br/>
 pass: admin<br/>
