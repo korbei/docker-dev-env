@@ -1,1 +1,9 @@
-//TODO
+batch
+
+module add --name=com.mysql --resources=/tmp/mysql-connector-java-8.0.17.jar --dependencies=javax.api,javax.transaction.api
+
+/subsystem=datasources/jdbc-driver=mysql:add(driver-name=mysql,driver-module-name=com.mysql,driver-xa-datasource-class-name=com.mysql.cj.jdbc.MysqlXADataSource)
+
+data-source add --jndi-name=${env.JNDI_NAME} --name=${env.DS_NAME} --connection-url=jdbc:mysql://${env.DB_HOST}:${env.DB_PORT}/${env.DB_NAME} --driver-name=mysql --user-name=${env.DB_USER} --password=${env.DB_PASS}
+
+run-batch

@@ -1,0 +1,36 @@
+version: '3'
+services:
+    mysql:
+        image: mysql
+        container_name: mysql
+        user: root:root
+        environment:
+             - MYSQL_ROOT_PASSWORD=root
+             - MYSQL_DATABASE=myDB
+        volumes:
+            - ./volumes/mysql/data:/var/lib/mysql
+    wildfly:
+        container_name: wildfly
+        build:
+            context: ..
+            args:
+              jdbc_driver: mysql
+        ports:
+            - "80:8080"
+            - "99:9990"
+        environment:
+            - DB_HOST=mysql
+            - DB_PORT=3306
+            - DB_NAME=myDB
+            - DB_USER=root
+            - DB_PASS=root
+            - DS_NAME=myDatasource
+        depends_on:
+            - mysql
+        volumes:
+            - ./volumes/wildfly/logs:/opt/jboss/wildfly/standalone/log
+            - ./volumes/wildfly/deployments:/opt/jboss/wildfly/standalone/deployments
+    adminer:
+        image: adminer
+        ports:
+         - 81:8080

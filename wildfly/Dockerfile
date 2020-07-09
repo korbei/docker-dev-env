@@ -2,7 +2,7 @@ FROM jboss/wildfly
 
 ARG jdbc_driver
 
-RUN echo "jdbc-driver: $jdbc_driver"
+RUN echo "------jdbc-driver: $jdbc_driver"
 
 ENV DB_HOST postgres
 ENV DB_PORT 5432
@@ -16,7 +16,9 @@ ENV JNDI_NAME java:/jdbc/$DS_NAME
 USER root
 
 ADD https://jdbc.postgresql.org/download/postgresql-42.2.5.jar /tmp/postgresql.jar
+ADD https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.17/mysql-connector-java-8.0.17.jar /tmp/mysql-connector-java-8.0.17.jar
 ADD scripts/install-postgres-module.cli /tmp/install-postgres-module.cli
+ADD scripts/install-mysql-module.cli /tmp/install-mysql-module.cli
 
 RUN /bin/sh -c '$JBOSS_HOME/bin/standalone.sh &' && \
   sleep 10 && \
