@@ -1,5 +1,9 @@
 FROM jboss/wildfly
 
+ARG jdbc_driver
+
+RUN echo "jdbc-driver: $jdbc_driver"
+
 ENV DB_HOST postgres
 ENV DB_PORT 5432
 ENV DB_NAME myDB
@@ -16,7 +20,7 @@ ADD scripts/install-postgres-module.cli /tmp/install-postgres-module.cli
 
 RUN /bin/sh -c '$JBOSS_HOME/bin/standalone.sh &' && \
   sleep 10 && \
-  $JBOSS_HOME/bin/jboss-cli.sh --connect --file=/tmp/install-postgres-module.cli && \ 
+  $JBOSS_HOME/bin/jboss-cli.sh --connect --file=/tmp/install-${jdbc_driver}-module.cli && \
   $JBOSS_HOME/bin/jboss-cli.sh --connect --command=:shutdown && \
   rm -rf $JBOSS_HOME/standalone/configuration/standalone_xml_history/ $JBOSS_HOME/standalone/log/*
 

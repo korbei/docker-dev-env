@@ -3,6 +3,7 @@ services:
     postgres:
         image: postgres
         container_name: postgres
+        user: root:root
         ports:
           - "5432:5432"
         environment:
@@ -13,7 +14,10 @@ services:
             - ./volumes/postgres/data:/var/lib/postgresql/data
     wildfly:
         container_name: wildfly
-        build: ..
+        build:
+            context: ..
+            args:
+              jdbc_driver: postgres
         ports:
             - "80:8080"
             - "99:9990"
