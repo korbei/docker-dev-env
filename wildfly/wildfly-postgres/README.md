@@ -5,12 +5,12 @@
 ```
 docker-compose up -d
 ```
-Widlfy admin console
-http://localhost:99/console/index.html
-user: admin
-pass: admin
+Widlfy admin console<br/>
+http://localhost:99/console/index.html<br/>
+user: admin<br/>
+pass: admin<br/>
 
 Pgadmin
-http://localhost:81/login
-user: admin
-pass: admin
+http://localhost:81/login<br/>
+user: admin<br/>
+pass: admin<br/>
