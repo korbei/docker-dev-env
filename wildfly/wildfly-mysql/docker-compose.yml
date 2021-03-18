@@ -10,7 +10,7 @@ services:
         volumes:
             - ./volumes/mysql/data:/var/lib/mysql
     wildfly:
-        container_name: wildfly
+        container_name: wildfly-mysql
         build:
             context: ..
             args:
@@ -30,7 +30,3 @@ services:
         volumes:
             - ./volumes/wildfly/logs:/opt/jboss/wildfly/standalone/log
             - ./volumes/wildfly/deployments:/opt/jboss/wildfly/standalone/deployments
-    adminer:
-        image: adminer
-        ports:
-         - 81:8080

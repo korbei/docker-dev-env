@@ -1,0 +1,11 @@
+batch
+
+module add --name=com.oracle.orai18n --resources=/tmp/orai18n-19.3.0.0.jar --dependencies=javax.api,javax.transaction.api
+
+module add --name=com.oracle.jdbc --resources=/tmp/ojdbc8-19.7.0.0.jar --dependencies=javax.api,javax.transaction.api,com.oracle.orai18n
+
+/subsystem=datasources/jdbc-driver=oracle:add(driver-name=oracle,driver-module-name=com.oracle.jdbc,driver-class-name=oracle.jdbc.driver.OracleDriver)
+
+data-source add --jndi-name=${env.JNDI_NAME} --name=${env.DS_NAME} --connection-url=jdbc:oracle:thin:@//${env.DB_HOST}:${env.DB_PORT}/${env.DB_NAME} --driver-name=oracle --user-name=${env.DB_USER} --password=${env.DB_PASS}
+
+run-batch

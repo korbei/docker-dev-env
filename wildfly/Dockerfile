@@ -15,10 +15,13 @@ ENV JNDI_NAME java:/jdbc/$DS_NAME
 
 USER root
 
-ADD https://jdbc.postgresql.org/download/postgresql-42.2.5.jar /tmp/postgresql.jar
+ADD https://jdbc.postgresql.org/download/postgresql-42.2.5.jar /tmp/postgresql-42.2.5.jar
 ADD https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.17/mysql-connector-java-8.0.17.jar /tmp/mysql-connector-java-8.0.17.jar
+ADD https://repo1.maven.org/maven2/com/oracle/ojdbc/orai18n/19.3.0.0/orai18n-19.3.0.0.jar /tmp/orai18n-19.3.0.0.jar
+ADD https://repo1.maven.org/maven2/com/oracle/database/jdbc/ojdbc8/19.7.0.0/ojdbc8-19.7.0.0.jar /tmp/ojdbc8-19.7.0.0.jar
 ADD scripts/install-postgres-module.cli /tmp/install-postgres-module.cli
 ADD scripts/install-mysql-module.cli /tmp/install-mysql-module.cli
+ADD scripts/install-oracle-module.cli /tmp/install-oracle-module.cli
 
 RUN /bin/sh -c '$JBOSS_HOME/bin/standalone.sh &' && \
   sleep 10 && \

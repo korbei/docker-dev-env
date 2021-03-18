@@ -1,0 +1,23 @@
+version: '3'
+services:
+    wildfly:
+        container_name: wildfly-oracle
+        build:
+            context: ..
+            args:
+              jdbc_driver: oracle
+        ports:
+            - "80:8080"
+            - "99:9990"
+        environment:
+            - DB_HOST=oracle
+            - DB_PORT=1521
+            - DB_NAME=ORCLCDB
+            - DB_USER=sys
+            - DB_PASS=Oradoc_db1
+            - DS_NAME=myDatasource
+        depends_on:
+            - oracle
+        volumes:
+            - ./volumes/wildfly/logs:/opt/jboss/wildfly/standalone/log
+            - ./volumes/wildfly/deployments:/opt/jboss/wildfly/standalone/deployments
